@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=3 uid="uid://tsvdog8ukyod"]
+
+[ext_resource type="Texture2D" uid="uid://dt0af4o7yh41a" path="res://Assets/Player/Player.png" id="1_74586"]
+[ext_resource type="Script" path="res://player.gd" id="1_u00gr"]
+[ext_resource type="Script" path="res://shooting.gd" id="3_ukgna"]
+[ext_resource type="PackedScene" uid="uid://bdattsu3cehxg" path="res://laser.tscn" id="4_bydv1"]
+[ext_resource type="Texture2D" uid="uid://bi2vdab3slwgf" path="res://Assets/Player/Player-explosion1.png" id="5_2g4aj"]
+[ext_resource type="Texture2D" uid="uid://b4mk25ro2nqtu" path="res://Assets/Player/Player-explosion2.png" id="6_lj3xk"]
+[ext_resource type="Texture2D" uid="uid://dsg2krqtkgnca" path="res://Assets/Player/Player-explosion3.png" id="7_swbha"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gm40e"]
+size = Vector2(81.5, 29.2813)
+
+[sub_resource type="Animation" id="Animation_gglfk"]
+resource_name = "destroy"
+length = 2.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_74586"), ExtResource("5_2g4aj"), ExtResource("6_lj3xk"), ExtResource("7_swbha"), ExtResource("5_2g4aj"), ExtResource("6_lj3xk"), ExtResource("7_swbha"), ExtResource("5_2g4aj"), ExtResource("6_lj3xk"), ExtResource("7_swbha")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqq0o"]
+_data = {
+"destroy": SubResource("Animation_gglfk")
+}
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_u00gr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 6)
+scale = Vector2(6.23077, 6.75)
+texture = ExtResource("1_74586")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_gm40e")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="shotOrigin" type="Node2D" parent="."]
+position = Vector2(0, -22)
+script = ExtResource("3_ukgna")
+laser_scene = ExtResource("4_bydv1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sqq0o")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://brxsnojg7bil3"]
+
+[ext_resource type="Script" path="res://scenes/invader_spawner.gd" id="1_37don"]
+
+[node name="invaderSpawner" type="Node2D"]
+position = Vector2(16, -224)
+script = ExtResource("1_37don")
+
+[node name="movementTimer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="TimeShot" type="Timer" parent="."]
+autostart = true

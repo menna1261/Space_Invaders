@@ -1,0 +1,120 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2knkx566t3x4"]
+
+[ext_resource type="Texture2D" uid="uid://m4ub6oll4ikv" path="res://Assets/Invaders/Invader3-1.png" id="1_btn0w"]
+[ext_resource type="Script" path="res://Start_Screen2.gd" id="1_pgg00"]
+[ext_resource type="FontFile" uid="uid://ch103gi2tob72" path="res://Assets/font/andina.ttf" id="2_3gbti"]
+[ext_resource type="Texture2D" uid="uid://bn227mp3yqjlo" path="res://Assets/Invaders/Invader2-1.png" id="3_y5yxu"]
+[ext_resource type="Texture2D" uid="uid://dy2h5dklc8h7p" path="res://Assets/Invaders/Invader1-1.png" id="4_yvy4w"]
+[ext_resource type="Script" path="res://Button.gd" id="5_rwqnh"]
+
+[node name="StartScreen" type="CanvasLayer"]
+script = ExtResource("1_pgg00")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -319.0
+offset_top = -297.0
+offset_right = 246.0
+offset_bottom = 333.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.517647, 0.937255, 1)
+theme_override_fonts/font = ExtResource("2_3gbti")
+theme_override_font_sizes/font_size = 100
+text = "SPACE 
+INVADERS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Invader_container_1" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Invader1Texture" type="TextureRect" parent="MarginContainer/VBoxContainer2/VBoxContainer/Invader_container_1"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture = ExtResource("1_btn0w")
+
+[node name="Invader1label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer/Invader_container_1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3gbti")
+theme_override_font_sizes/font_size = 30
+text = "= 10 Points"
+
+[node name="Invader_container_2" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Invader2Texture" type="TextureRect" parent="MarginContainer/VBoxContainer2/VBoxContainer/Invader_container_2"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+texture = ExtResource("3_y5yxu")
+
+[node name="Invader2label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer/Invader_container_2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3gbti")
+theme_override_font_sizes/font_size = 30
+text = "= 20 Points"
+
+[node name="Invader_container_3" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Invader3Texture" type="TextureRect" parent="MarginContainer/VBoxContainer2/VBoxContainer/Invader_container_3"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture = ExtResource("4_yvy4w")
+
+[node name="Invader3label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer/Invader_container_3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3gbti")
+theme_override_font_sizes/font_size = 30
+text = " = 40 Points"
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_3gbti")
+theme_override_font_sizes/font_size = 30
+text = "PLAY SPACE INVADERS"
+script = ExtResource("5_rwqnh")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.75
+autostart = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/Button" to="MarginContainer/VBoxContainer2/Button" method="load_game"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="MarginContainer/VBoxContainer2/Button" method="show_next_control"]

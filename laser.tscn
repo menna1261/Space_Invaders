@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdattsu3cehxg"]
+
+[ext_resource type="Texture2D" uid="uid://bggjitmo1byod" path="res://Assets/Weapons/Laser.png" id="1_ixqkf"]
+[ext_resource type="Script" path="res://laser.gd" id="1_ygqcy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_graik"]
+size = Vector2(5, 9.5)
+
+[node name="Laser" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 2
+collision_mask = 84
+script = ExtResource("1_ygqcy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.75, 8.75)
+scale = Vector2(1.857, 1)
+texture = ExtResource("1_ixqkf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 9.25)
+shape = SubResource("RectangleShape2D_graik")
